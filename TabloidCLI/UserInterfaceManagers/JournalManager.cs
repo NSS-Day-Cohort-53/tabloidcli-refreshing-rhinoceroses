@@ -21,10 +21,10 @@ namespace TabloidCLI.UserInterfaceManagers
         public IUserInterfaceManager Execute()
         {
             Console.WriteLine("My Journal Menu");
-            Console.WriteLine(" 1) List Journals");
-            Console.WriteLine(" 2) Add Journal");
-            Console.WriteLine(" 3) Edit Journal");
-            Console.WriteLine(" 4) Remove Journal");
+            Console.WriteLine(" 1) List Journal Entries");
+            Console.WriteLine(" 2) Add Journal Entry");
+            Console.WriteLine(" 3) Edit Journal Entry");
+            Console.WriteLine(" 4) Remove Journal Entry");
             Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
@@ -91,7 +91,7 @@ namespace TabloidCLI.UserInterfaceManagers
         }
         private void Add()
         {
-            Console.WriteLine("New Journal");
+            Console.WriteLine("New Journal Entry");
             Journal journal = new Journal();
 
             Console.Write("Title: ");
