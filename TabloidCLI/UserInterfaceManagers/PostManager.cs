@@ -44,6 +44,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Add();
                     return this;
                 case "4":
+                    Edit();
                     return this;
                 case "5":
                     Remove();
@@ -150,6 +151,45 @@ namespace TabloidCLI.UserInterfaceManagers
 
 
 
+        }
+        private void Edit()
+        {
+            Post postToEdit = Choose("Which post would you like to edit?");
+            if (postToEdit == null)
+            {
+                return;
+            }
+
+            Console.WriteLine();
+            Console.Write("New Title (blank to leave unchanged: ");
+            string title = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                postToEdit.Title = title;
+            }
+
+            Console.Write("New Url (blank to leave unchanged: ");
+            string url = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                postToEdit.Url = url;
+            }
+            Console.Write("New Publish Date (e.g. 1/1/2022) (blank to leave unchanged: ");
+            string publishDate = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(publishDate))
+            {
+                postToEdit.PublishDateTime = DateTime.Parse(publishDate);
+            }
+
+            Author chosenAuthor = ChooseAuthor("Choose new author: ");
+            if (chosenAuthor != null)
+            {
+                postToEdit.Author = chosenAuthor;
+            }
+
+            //blog selection goes here
+
+            _postRepository.Update(postToEdit);
         }
         private void Remove()
         {
