@@ -134,17 +134,28 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Post
-                                        SET Title = @title,
-                                            Url = @url,
-                                            PublishDateTime = @publishDate,
-                                            AuthorId = @authorId,
-                                            BlogId = @blogId
-                                        WHERE Id = @id";
+                    if (post.Author != null)
+                    {
+                        cmd.CommandText = @"UPDATE Post
+                                            SET Title = @title,
+                                                Url = @url,
+                                                PublishDateTime = @publishDate,
+                                                AuthorId = @authorId,
+                                                BlogId = @blogId
+                                            WHERE Id = @id";
+                        cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
+                    } else
+                    {
+                        cmd.CommandText = @"UPDATE Post
+                                            SET Title = @title,
+                                                Url = @url,
+                                                PublishDateTime = @publishDate,
+                                                BlogId = @blogId
+                                            WHERE Id = @id";
+                    }
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDate", post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
                     cmd.Parameters.AddWithValue("@blogId", 1); //replace 1 with post.Blog.Id once blog is implemented
                     cmd.Parameters.AddWithValue("@id", post.Id);
 

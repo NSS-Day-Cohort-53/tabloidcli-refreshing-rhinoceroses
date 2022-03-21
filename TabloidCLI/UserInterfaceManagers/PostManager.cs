@@ -121,7 +121,10 @@ namespace TabloidCLI.UserInterfaceManagers
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Invalid Selection");
+                if (!string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Invalid Selection. Cannot add/update author.");
+                }
                 return null;
             }
         }
@@ -143,7 +146,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Author chosenAuthor = ChooseAuthor("Which person is the author of the post?");
             while (chosenAuthor == null)
             {
-                chosenAuthor = ChooseAuthor("Which person is the author of the post?");
+                chosenAuthor = ChooseAuthor("Please choose the author of the post.");
             }
             post.Author = chosenAuthor;
 
@@ -161,27 +164,27 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             Console.WriteLine();
-            Console.Write("New Title (blank to leave unchanged: ");
+            Console.Write("New Title (blank to leave unchanged): ");
             string title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(title))
             {
                 postToEdit.Title = title;
             }
 
-            Console.Write("New Url (blank to leave unchanged: ");
+            Console.Write("New Url (blank to leave unchanged): ");
             string url = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(url))
             {
                 postToEdit.Url = url;
             }
-            Console.Write("New Publish Date (e.g. 1/1/2022) (blank to leave unchanged: ");
+            Console.Write("New Publish Date (e.g. 1/1/2022) (blank to leave unchanged): ");
             string publishDate = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(publishDate))
             {
                 postToEdit.PublishDateTime = DateTime.Parse(publishDate);
             }
 
-            Author chosenAuthor = ChooseAuthor("Choose new author: ");
+            Author chosenAuthor = ChooseAuthor("Choose new author (blank to leave unchanged): ");
             if (chosenAuthor != null)
             {
                 postToEdit.Author = chosenAuthor;
