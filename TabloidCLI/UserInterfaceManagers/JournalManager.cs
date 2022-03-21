@@ -41,6 +41,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Edit();
                     return this;
                 case "4":
+                    Remove();
                     return this;
                 case "0":
                     return _parentUI;
@@ -128,6 +129,14 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             _journalRepository.Update(journalToEdit);
+        }
+        private void Remove()
+        {
+            Journal journalToDelete = Choose("Which journal entry would you like to remove?");
+            if(journalToDelete != null)
+            {
+                _journalRepository.Delete(journalToDelete.Id);
+            }
         }
     }
 }
