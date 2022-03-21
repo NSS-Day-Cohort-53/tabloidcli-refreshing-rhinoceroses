@@ -19,6 +19,7 @@ namespace TabloidCLI.Repositories
                 {
                     cmd.CommandText = @"SELECT Id,
                                                Title,
+                                               Content,
                                                CreateDateTime
                                         FROM Journal";
 
@@ -31,6 +32,7 @@ namespace TabloidCLI.Repositories
                         {
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Content = reader.GetString(reader.GetOrdinal("Content")),
                             CreateDateTime = reader.GetDateTime(reader.GetOrdinal("CreateDateTime"))
                         };
 
