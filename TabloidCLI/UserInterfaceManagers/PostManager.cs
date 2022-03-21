@@ -10,6 +10,7 @@ namespace TabloidCLI.UserInterfaceManagers
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
         private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
@@ -17,6 +18,7 @@ namespace TabloidCLI.UserInterfaceManagers
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
             _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
             _connectionString = connectionString;
         }
 
@@ -128,6 +130,39 @@ namespace TabloidCLI.UserInterfaceManagers
                 return null;
             }
         }
+        private Blog ChooseBlog(string prompt = null)
+        {
+            if (prompt == null)
+            {
+                prompt = "Please choose an Blog:";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Blog> blogs = _blogRepository.GetAll();
+
+            for (int i = 0; i < blogs.Count; i++)
+            {
+                Blog blog = blogs[i];
+                Console.WriteLine($" {i + 1}) {blog.ToString()}");
+            }
+            Console.Write("> ");
+
+            string input = Console.ReadLine();
+            try
+            {
+                int choice = int.Parse(input);
+                return blogs[choice - 1];
+            }
+            catch (Exception ex)
+            {
+                if (!string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Invalid Selection. Cannot add/update blog.");
+                }
+                return null;
+            }
+        }
         private void Add()
 
         {
@@ -149,6 +184,15 @@ namespace TabloidCLI.UserInterfaceManagers
                 chosenAuthor = ChooseAuthor("Please choose the author of the post.");
             }
             post.Author = chosenAuthor;
+
+            Blog chosenBlog = ChooseBlog("Which blog does this post belong to?");
+            while (chosenBlog == null)
+            {
+                chosenBlog = ChooseBlog("Please choose the author of the post.");
+            }
+            post.Blog = chosenBlog;
+
+
 
             _postRepository.Insert(post);
 
@@ -190,7 +234,12 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Author = chosenAuthor;
             }
 
-            //blog selection goes here
+            Blog chosenBlog = ChooseBlog("Which blog does this post belong to?");
+            while (chosenBlog == null)
+            {
+                chosenBlog = ChooseBlog("Please choose the blog of the post.");
+            }
+            postToEdit.Blog = chosenBlog;
 
             _postRepository.Update(postToEdit);
         }

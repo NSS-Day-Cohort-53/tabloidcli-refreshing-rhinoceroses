@@ -120,8 +120,7 @@ namespace TabloidCLI.Repositories
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
                     cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
-                    cmd.Parameters.AddWithValue("@blogId", 1); // replace 1 with post.Blog.Id once blogs are implemented
-
+                    cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -134,7 +133,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    if (post.Author != null)
+                    if (post.Author != null && post.Blog != null)
                     {
                         cmd.CommandText = @"UPDATE Post
                                             SET Title = @title,
@@ -144,7 +143,9 @@ namespace TabloidCLI.Repositories
                                                 BlogId = @blogId
                                             WHERE Id = @id";
                         cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
-                    } else
+                        cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
+                    }
+                    else if (post.Author == null)
                     {
                         cmd.CommandText = @"UPDATE Post
                                             SET Title = @title,
@@ -152,12 +153,23 @@ namespace TabloidCLI.Repositories
                                                 PublishDateTime = @publishDate,
                                                 BlogId = @blogId
                                             WHERE Id = @id";
+                        cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
+                    }
+                    else
+                    {
+                        cmd.CommandText = @"UPDATE Post
+                                            SET Title = @title,
+                                                Url = @url,
+                                                PublishDateTime = @publishDate,
+                                                AuthorId = @authorId
+                                            WHERE Id = @id";
+                        cmd.Parameters.AddWithValue("@id", post.Id);
                     }
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDate", post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@blogId", 1); //replace 1 with post.Blog.Id once blog is implemented
                     cmd.Parameters.AddWithValue("@id", post.Id);
+                    
 
                     cmd.ExecuteNonQuery();
                 }
