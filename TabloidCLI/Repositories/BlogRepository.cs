@@ -118,7 +118,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"UPDATE Author
+                    cmd.CommandText = @"UPDATE Blog
                                            SET Title = @title,
                                                Url = @url
                                          WHERE id = @id";
