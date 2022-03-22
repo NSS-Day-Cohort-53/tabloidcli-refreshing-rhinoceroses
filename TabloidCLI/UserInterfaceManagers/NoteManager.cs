@@ -11,11 +11,11 @@ namespace TabloidCLI.UserInterfaceManagers
         private NoteRepository _noteRepository;
         private string _connectionString;
 
-        public NoteManager(IUserInterfaceManager parentUI, string connectionString)
+        public NoteManager(IUserInterfaceManager parentUI, string connectionString, int postId)
         {
             _parentUI = parentUI;
-            _noteRepository = new NoteRepository(connectionString);
             _connectionString = connectionString;
+            _noteRepository = new NoteRepository(postId, connectionString);
         }
 
         public IUserInterfaceManager Execute()

@@ -7,7 +7,11 @@ namespace TabloidCLI.Repositories
 {
     public class NoteRepository : DatabaseConnector, IRepository<Note>
     {
-        public NoteRepository(string connectionString) : base(connectionString) { }
+        private int _postId;
+        public NoteRepository(int postId, string connectionString) : base(connectionString)
+        {
+            _postId = postId;
+        }
 
         public List<Note> GetAll()
         {
@@ -20,8 +24,9 @@ namespace TabloidCLI.Repositories
                                                Title,
                                                Content,
                                                CreateDateTime
-                                          FROM Note";
-
+                                          FROM Note
+                                         WHERE PostId = @postId";
+                    cmd.Parameters.AddWithValue("@postId", _postId);
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<Note> notes = new List<Note>();
 
