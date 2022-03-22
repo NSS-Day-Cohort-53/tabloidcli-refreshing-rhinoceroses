@@ -134,7 +134,7 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             if (prompt == null)
             {
-                prompt = "Please choose an Blog:";
+                prompt = "Please choose a blog:";
             }
 
             Console.WriteLine(prompt);
@@ -181,14 +181,14 @@ namespace TabloidCLI.UserInterfaceManagers
             Author chosenAuthor = ChooseAuthor("Which person is the author of the post?");
             while (chosenAuthor == null)
             {
-                chosenAuthor = ChooseAuthor("Please choose the author of the post.");
+                chosenAuthor = ChooseAuthor("Please choose an author.");
             }
             post.Author = chosenAuthor;
 
             Blog chosenBlog = ChooseBlog("Which blog does this post belong to?");
             while (chosenBlog == null)
             {
-                chosenBlog = ChooseBlog("Please choose the author of the post.");
+                chosenBlog = ChooseBlog("Please choose a blog.");
             }
             post.Blog = chosenBlog;
 
