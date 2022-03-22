@@ -61,10 +61,14 @@ namespace TabloidCLI.Repositories
                                                 a.Bio,
                                                 b.Id AS BlogId,
                                                 b.Title AS BlogTitle, 
-                                                b.URL AS BlogUrl     
+                                                b.URL AS BlogUrl,
+                                                t.Id AS TagId,
+                                                t.Name As TagName
                                            FROM Post p
                                                 JOIN Author a ON a.Id = p.AuthorId
                                                 JOIN Blog b ON b.Id = p.BlogId
+                                                LEFT JOIN PostTag pt ON p.Id = pt.PostId
+                                                LEFT JOIN Tag t ON t.Id = pt.TagId
                                           WHERE p.id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
@@ -100,6 +104,15 @@ namespace TabloidCLI.Repositories
                                 Author = author,
                                 Blog = blog
                             };
+                        }
+
+                        if (!reader.IsDBNull(reader.GetOrdinal("TagId")))
+                        {
+                            post.Tags.Add(new Tag()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("TagId")),
+                                Name = reader.GetString(reader.GetOrdinal("TagName"))
+                            });
                         }
                     }
                     reader.Close();
