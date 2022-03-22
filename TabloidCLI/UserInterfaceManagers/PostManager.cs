@@ -41,7 +41,15 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    return this;
+                    Post post = Choose();
+                    if (post == null)
+                    {
+                        return this;
+                    }
+                    else
+                    {
+                        return new PostDetailManager(this, _connectionString, post.Id);
+                    }
                 case "3":
                     Add();
                     return this;
@@ -144,7 +152,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < blogs.Count; i++)
             {
                 Blog blog = blogs[i];
-                Console.WriteLine($" {i + 1}) {blog.ToString()}");
+                Console.WriteLine($" {i + 1}) {blog}");
             }
             Console.Write("> ");
 
