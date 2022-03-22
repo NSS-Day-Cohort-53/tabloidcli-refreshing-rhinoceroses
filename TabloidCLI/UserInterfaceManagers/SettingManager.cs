@@ -56,7 +56,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     int choice = int.Parse(input);
                     return colors[choice - 1];
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine("Invalid Selection");
                 }

@@ -99,7 +99,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 int choice = int.Parse(input);
                 return posts[choice - 1];
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Console.WriteLine("Invalid Selection");
                 return null;
@@ -129,7 +129,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 int choice = int.Parse(input);
                 return authors[choice - 1];
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (!string.IsNullOrWhiteSpace(input))
                 {
@@ -162,7 +162,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 int choice = int.Parse(input);
                 return blogs[choice - 1];
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 if (!string.IsNullOrWhiteSpace(input))
                 {
