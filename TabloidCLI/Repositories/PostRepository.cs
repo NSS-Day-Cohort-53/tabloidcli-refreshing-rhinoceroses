@@ -145,13 +145,23 @@ namespace TabloidCLI.Repositories
                         cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
                         cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
                     }
-                    else if (post.Author == null)
+                    else if (post.Author == null && post.Blog != null)
                     {
                         cmd.CommandText = @"UPDATE Post
                                             SET Title = @title,
                                                 Url = @url,
                                                 PublishDateTime = @publishDate,
                                                 BlogId = @blogId
+                                            WHERE Id = @id";
+                        cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
+                    }
+                    else if (post.Author != null && post.Blog == null)
+                    {
+                        cmd.CommandText = @"UPDATE Post
+                                            SET Title = @title,
+                                                Url = @url,
+                                                PublishDateTime = @publishDate,
+                                                AuthorId = @authorId
                                             WHERE Id = @id";
                         cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
                     }
@@ -160,16 +170,14 @@ namespace TabloidCLI.Repositories
                         cmd.CommandText = @"UPDATE Post
                                             SET Title = @title,
                                                 Url = @url,
-                                                PublishDateTime = @publishDate,
-                                                AuthorId = @authorId
+                                                PublishDateTime = @publishDate
                                             WHERE Id = @id";
-                        cmd.Parameters.AddWithValue("@id", post.Id);
                     }
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDate", post.PublishDateTime);
                     cmd.Parameters.AddWithValue("@id", post.Id);
-                    
+
 
                     cmd.ExecuteNonQuery();
                 }

@@ -234,10 +234,10 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Author = chosenAuthor;
             }
 
-            Blog chosenBlog = ChooseBlog("Which blog does this post belong to?");
-            while (chosenBlog == null)
+            Blog chosenBlog = ChooseBlog("Which blog does this post belong to? (blank to leave unchanged): ");
+            if (chosenBlog != null)
             {
-                chosenBlog = ChooseBlog("Please choose the blog of the post.");
+                postToEdit.Blog = chosenBlog;
             }
             postToEdit.Blog = chosenBlog;
 
