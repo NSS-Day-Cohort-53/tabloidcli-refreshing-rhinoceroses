@@ -34,6 +34,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
+                    Add();
                     return this;
                 case "3":
                     return this;
@@ -52,6 +53,21 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine(note);
             }
+        }
+        private void Add()
+        {
+            Console.WriteLine("New Note");
+            Note note = new Note();
+
+            Console.Write("Title: ");
+            note.Title = Console.ReadLine();
+
+            Console.Write("Content: ");
+            note.Content = Console.ReadLine();
+
+            note.CreateDateTime = DateTime.Now;
+
+            _noteRepository.Insert(note);
         }
     }
 }
