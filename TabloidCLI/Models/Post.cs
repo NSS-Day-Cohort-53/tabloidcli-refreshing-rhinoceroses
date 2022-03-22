@@ -16,9 +16,9 @@ namespace TabloidCLI.Models
         public override string ToString()
         {
             return @$"{Title} by {Author.ToString()}
-({Url})
-{PublishDateTime}
-from {Blog.ToString()}";
+  ({Url})
+  {PublishDateTime}
+  from {Blog.ToString()}";
         }
     }
 }
