@@ -9,12 +9,14 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private BlogRepository _blogRepository;
+        private PostRepository _postRepository;
         private string _connectionString;
 
         public BlogManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _blogRepository = new BlogRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
         }
 
@@ -54,6 +56,8 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "5":
                     Remove();
                     return this;
+                case "0":
+                    return _parentUI;
                 default:
                     Console.WriteLine("Invalide Selection");
                     return this;
@@ -144,6 +148,11 @@ namespace TabloidCLI.UserInterfaceManagers
             Blog blogToDelete = Choose("Which blog would you like to remove?");
             if (blogToDelete != null)
             {
+                List<Post> postsToDelete = _postRepository.GetByBlog(blogToDelete.Id);
+                foreach (Post post in postsToDelete)
+                {
+                    _postRepository.Delete(post.Id);
+                }
                 _blogRepository.Delete(blogToDelete.Id);
             }
         }
