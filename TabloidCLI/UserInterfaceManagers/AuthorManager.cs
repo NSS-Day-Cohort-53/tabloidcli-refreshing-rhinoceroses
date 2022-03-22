@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using TabloidCLI.Models;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -8,12 +9,14 @@ namespace TabloidCLI.UserInterfaceManagers
     {
         private readonly IUserInterfaceManager _parentUI;
         private AuthorRepository _authorRepository;
+        private PostRepository _postRepository;
         private string _connectionString;
 
         public AuthorManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _authorRepository = new AuthorRepository(connectionString);
+            _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
         }
 
@@ -154,6 +157,11 @@ namespace TabloidCLI.UserInterfaceManagers
             Author authorToDelete = Choose("Which author would you like to remove?");
             if (authorToDelete != null)
             {
+                List<Post> postsToDelete = _postRepository.GetByAuthor(authorToDelete.Id);
+                foreach (Post post in postsToDelete)
+                {
+                    _postRepository.Delete(post.Id);
+                }
                 _authorRepository.Delete(authorToDelete.Id);
             }
         }
