@@ -46,11 +46,11 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine($" {i + 1}) {colors[i]}");
             }
-            Console.Write("> ");
 
-            string input = Console.ReadLine();
             while (true)
             {
+            Console.Write("> ");
+            string input = Console.ReadLine();
                 try
                 {
                     int choice = int.Parse(input);
