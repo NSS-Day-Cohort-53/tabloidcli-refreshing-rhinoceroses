@@ -175,9 +175,16 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("URL: ");
             post.Url = Console.ReadLine();
 
-            Console.Write("Publish Date (e.g. 1/1/1990): ");
-            post.PublishDateTime = DateTime.Parse(Console.ReadLine());
-
+            bool success = false;
+            DateTime publishDate;
+            do
+            {
+                Console.Write("Publish Date (e.g. 1/1/1990): ");
+                success = DateTime.TryParse(Console.ReadLine(), out publishDate);
+            }
+            while (!success);
+            post.PublishDateTime = publishDate;
+            
             Author chosenAuthor = ChooseAuthor("Which person is the author of the post?");
             while (chosenAuthor == null)
             {
@@ -221,11 +228,21 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 postToEdit.Url = url;
             }
-            Console.Write("New Publish Date (e.g. 1/1/2022) (blank to leave unchanged): ");
-            string publishDate = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(publishDate))
+            
+
+            bool success = false;
+            DateTime publishDate;
+            string publishDateStr = "";
+            do
             {
-                postToEdit.PublishDateTime = DateTime.Parse(publishDate);
+                Console.Write("New Publish Date (e.g. 1/1/2022) (blank to leave unchanged): ");
+                publishDateStr = Console.ReadLine();
+                success = DateTime.TryParse(publishDateStr, out publishDate);
+            }
+            while (!success && !string.IsNullOrWhiteSpace(publishDateStr));
+            if(!string.IsNullOrWhiteSpace(publishDateStr))
+            {
+                postToEdit.PublishDateTime = publishDate;
             }
 
             Author chosenAuthor = ChooseAuthor("Choose new author (blank to leave unchanged): ");
