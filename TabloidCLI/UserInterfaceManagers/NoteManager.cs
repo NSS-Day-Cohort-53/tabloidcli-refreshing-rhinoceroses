@@ -31,6 +31,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    List();
                     return this;
                 case "2":
                     return this;
@@ -41,6 +42,15 @@ namespace TabloidCLI.UserInterfaceManagers
                 default:
                     Console.WriteLine("Invalid Selection");
                     return this;
+            }
+        }
+
+        private void List()
+        {
+            List<Note> notes = _noteRepository.GetAll();
+            foreach (Note note in notes)
+            {
+                Console.WriteLine(note);
             }
         }
     }
