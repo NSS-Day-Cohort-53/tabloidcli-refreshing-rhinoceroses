@@ -35,6 +35,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    View();
                     return this;
                 case "2":
                     return this;
@@ -48,6 +49,15 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine("Invalid Selection");
                     return this;
             }
+        }
+
+        private void View()
+        {
+            Post post = _postRepository.Get(_postId);
+            Console.WriteLine($"Title: {post.Title}");
+            Console.WriteLine($"URL: {post.Url}");
+            Console.WriteLine($"Publication Date: {post.PublishDateTime}");
+            Console.WriteLine();
         }
     }
 }
