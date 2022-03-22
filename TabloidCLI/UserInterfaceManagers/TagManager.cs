@@ -110,7 +110,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             Console.WriteLine();
-            Console.Write("New tag nam (blank to leave unchanged): ");
+            Console.Write("New tag name (blank to leave unchanged): ");
             string name = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(name))
             {
@@ -122,7 +122,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Remove()
         {
-            Tag tagToDelete = Choose("Which aauthor would you like to remove?");
+            Tag tagToDelete = Choose("Which tag would you like to remove?");
             if (tagToDelete != null)
             {
                 _tagRepository.Delete(tagToDelete.Id);
