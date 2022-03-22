@@ -152,7 +152,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < blogs.Count; i++)
             {
                 Blog blog = blogs[i];
-                Console.WriteLine($" {i + 1}) {blog.ToString()}");
+                Console.WriteLine($" {i + 1}) {blog}");
             }
             Console.Write("> ");
 

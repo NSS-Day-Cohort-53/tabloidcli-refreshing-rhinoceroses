@@ -48,6 +48,7 @@ namespace TabloidCLI.Repositories
             }
         }
 
+        // this Get method will not be called
         public Note Get(int id)
         {
             return null;
@@ -72,6 +73,7 @@ namespace TabloidCLI.Repositories
             }
         }
 
+        // this Update method will not be called
         public void Update(Note note)
         {
 

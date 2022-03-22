@@ -16,8 +16,8 @@ namespace TabloidCLI.Models
         public override string ToString()
         {
             return @$"{CreateDateTime}
-{Title}: 
-{Content}";
+  {Title}: 
+  {Content}";
         }
     }
 }
