@@ -148,11 +148,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Blog blogToDelete = Choose("Which blog would you like to remove?");
             if (blogToDelete != null)
             {
-                List<Post> postsToDelete = _postRepository.GetByBlog(blogToDelete.Id);
-                foreach (Post post in postsToDelete)
-                {
-                    _postRepository.Delete(post.Id);
-                }
                 _blogRepository.Delete(blogToDelete.Id);
             }
         }

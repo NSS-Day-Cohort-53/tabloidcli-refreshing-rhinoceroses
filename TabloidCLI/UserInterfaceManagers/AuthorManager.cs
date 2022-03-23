@@ -157,11 +157,6 @@ namespace TabloidCLI.UserInterfaceManagers
             Author authorToDelete = Choose("Which author would you like to remove?");
             if (authorToDelete != null)
             {
-                List<Post> postsToDelete = _postRepository.GetByAuthor(authorToDelete.Id);
-                foreach (Post post in postsToDelete)
-                {
-                    _postRepository.Delete(post.Id);
-                }
                 _authorRepository.Delete(authorToDelete.Id);
             }
         }
